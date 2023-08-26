@@ -43,19 +43,19 @@ int handle_print(const char *fmt, int *i,
 va_list list, char buffer[], int flags, int width, int precision, int size);
 
 
-int print_char(va_list types, char buffer[],
+int p_char(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
-int print_string(va_list types, char buffer[],
+int p_string(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
-int print_percent(va_list types, char buffer[],
+int p_percent(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
-int print_int(va_list types, char buffer[],
+int p_int(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
-int print_binary(va_list types, char buffer[],
+int p_binary(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
-int print_unsigned(va_list types, char buffer[],
+int p_unsigned(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
-int print_octal(va_list types, char buffer[],
+int p_octal(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 int p_hexadecimal(va_list types, char buffer[],
 	int flags, int width, int precision, int size);

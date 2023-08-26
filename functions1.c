@@ -75,31 +75,6 @@ int p_octal(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
-	int curr_i;
-	int width = 0;
-
-	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
-	{
-		if (is_digit(format[curr_i]))
-		{
-			width *= 10;
-			width += format[curr_i] - '0';
-		}
-		else if (format[curr_i] == '*')
-		{
-			curr_i++;
-			width = va_arg(list, int);
-			break;
-		}
-		else
-			break;
-	}
-
-	*i = curr_i - 1;
-
-	return (width);
-}
-
 /**
  * p_hexadecimal - Prints an unsigned number in hexadecimal
  * @types: Lista of arguments
