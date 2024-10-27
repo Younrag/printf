@@ -7,6 +7,9 @@ int _printf(const char *format, ...)
 	int count = 0, i;
 
 	va_list ap;
+	if (format == NULL)
+                return (-1);
+
 	va_start(ap, format);
 	for (c = format; *c != 0; c++)
 	{
