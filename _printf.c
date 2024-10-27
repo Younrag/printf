@@ -1,65 +1,43 @@
 #include "main.h"
 
-/**
- * p_buffer - Prints contents of the buffer while existing
- * @buffer: Array of chars
- * @buff_ind: Index, represents the length.
- */
-void p_buffer(char buffer[], int *buff_ind)
-{
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
-
-	*buff_ind = 0;
-}
-
-
-/**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
- */
 int _printf(const char *format, ...)
 {
-	int i, printed = 0, printed_chars = 0;
-	int flags, width, precision, size, buff_ind = 0;
-	va_list list;
-	char buffer[BUFF_SIZE];
+	const char *c;
+	char spec, *string, chr;
+	int count = 0, i;
 
-	if (format == NULL)
-		return (-1);
-
-	va_start(list, format);
-
-	for (i = 0; format && format[i] != '\0'; i++)
+	va_list ap;
+	va_start(ap, format);
+	for (c = format; *c != 0; c++)
 	{
-		if (format[i] != '%')
+		if (*c == '%')
 		{
-			buffer[buff_ind++] = format[i];
-			if (buff_ind == BUFF_SIZE)
-				p_buffer(buffer, &buff_ind);
-			/* write(1, &format[i], 1);*/
-			printed_chars++;
+			c++;
+			spec = *c;
+			switch (spec) {
+				case 'c':
+					chr = va_arg(ap, int);
+					putchar(chr);
+					count++;
+					continue;
+				case 's':
+					string = va_arg(ap, char*);
+					for (i = 0; *string != '\0'; i++)
+					{
+						putchar(*string);
+						string++;
+					}
+					count = count + i;
+					continue;
+				case '%':
+					putchar('%');
+					count++;
+					continue;
+			}
 		}
-		else
-		{
-			p_buffer(buffer, &buff_ind);
-			flags = get_flags(format, &i);
-			width = get_width(format, &i, list);
-			precision = get_precision(format, &i, list);
-			size = get_size(format, &i);
-			++i;
-			printed = handle_print(format, &i, list, buffer,
-				flags, width, precision, size);
-			if (printed == -1)
-				return (-1);
-			printed_chars += printed;
-		}
+		putchar(*c);
+		count++;
 	}
-
-	p_buffer(buffer, &buff_ind);
-
-	va_end(list);
-
-	return (printed_chars);
+	putchar('\0');
+	return (count);
 }
