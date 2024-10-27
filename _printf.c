@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
+ */
+
 int _printf(const char *format, ...)
 {
 	const char *c;
@@ -11,7 +17,7 @@ int _printf(const char *format, ...)
                 return (-1);
 
 	va_start(ap, format);
-	for (c = format; *c != 0; c++)
+	for (c = format; *c && c != 0; c++)
 	{
 		if (*c == '%')
 		{
