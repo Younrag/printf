@@ -47,6 +47,5 @@ int _printf(const char *format, ...)
 		putchar(*c);
 		count++;
 	}
-	putchar('\0');
 	return (count);
 }
